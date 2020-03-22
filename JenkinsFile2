@@ -1,0 +1,25 @@
+pipeline {
+  agent  any 
+  
+  stages {
+    stage('Checkout external proj') {
+        steps {
+            git branch: 'master',
+                url: 'https://github.com/CXMsanjay/MyDockerTest.git'
+
+            sh "ls -lat"
+        }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'sudo docker build -t yogi9312/test:1 .'
+      }
+    }
+    stage('Publish') {
+      steps {
+          sh 'sudo docker push yogi9312/test:1'
+        }
+      }
+    }
+  }
